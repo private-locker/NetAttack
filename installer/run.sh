@@ -91,6 +91,8 @@ static routers=10.3.141.1
 static domain_name_server=8.8.8.8 8.8.4.4
 " > /etc/dhcpcd.conf
 
+cat ${PWD}/lighttpd.conf > /etc/lighttpd/lighttpd.conf
+
 sudo systemctl restart dhcpcd
 sudo systemctl enable dnsmasq
 sudo systemctl enable hostapd
