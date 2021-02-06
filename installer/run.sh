@@ -84,7 +84,14 @@ sed -i 's/CONFIG_PLATFORM_ARM64_RPI = n/CONFIG_PLATFORM_ARM64_RPI = y/g' Makefil
 make && make install
 cd
 
+sudo systemctl 
 sudo systemctl restart dhcpcd
 sudo systemctl enable dnsmasq
+printf "
+expand-hosts
+interface=wlan0
+dhcp-authoritative
+dhcp-range=10.3.141.5,10.3.141.20,12h
+" >> /etc/dnsmasq.conf
 sudo systemctl enable hostapd
 sudo reboot now
