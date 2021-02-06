@@ -66,7 +66,7 @@ country_code=
 #ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40] # (Raspberry Pi 3)
 
 ## NetAttack bridge AP mode (disabled by default)
-bridge=br0
+#bridge=br0
 " > /etc/hostapd/hostapd.conf
 
 printf "
@@ -83,14 +83,15 @@ slaac private
 nohook lookup-hostname
 
 # NetAttack wlan0 configuration
-denyinterfaces wlan0 eth0
-#interface wlan0
-interface br0
+#denyinterfaces wlan0 eth0
+interface wlan0
+#interface br0
 static ip_address=10.3.141.1/24
 static routers=10.3.141.1
 static domain_name_server=8.8.8.8 8.8.4.4
 " > /etc/dhcpcd.conf
-
+sudo systemctl umask lighttpd
+sudo systemctl enable lighttpd
 cat ${PWD}/lighttpd.conf > /etc/lighttpd/lighttpd.conf
 
 sudo systemctl restart dhcpcd
